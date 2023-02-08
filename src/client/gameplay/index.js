@@ -15,4 +15,3 @@ GAME_CONFIG.scene.update = () =>
 }
 
 const game = new Phaser.Game(GAME_CONFIG)
-const canvas = document.querySelector("#gameport canvas")
