@@ -13,7 +13,20 @@ export default {
         filename: 'index.js',
     },
     module: {
-        rules: [{ test: /\.txt$/, use: 'raw-loader' }],
+        rules: [
+            { 
+                test: /\.txt$/, 
+                use: ['raw-loader'] 
+            },
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"]
+            }
+        ],
     },
     plugins: [new HtmlWebpackPlugin({ template: './index.html' })],
+    watchOptions: {
+        aggregateTimeout: 5000,
+        poll: 1000
+    }
 };
