@@ -15,5 +15,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Cheat to Win: app listening on port ${port}`)
 })
