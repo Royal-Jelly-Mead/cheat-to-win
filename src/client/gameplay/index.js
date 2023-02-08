@@ -1,5 +1,5 @@
 import Phaser from "phaser"
-import config from "./util/config.js"
+import GAME_CONFIG from "./util/config.js"
 import css from "../style.css"
 
 config.scene.preload = () =>
@@ -14,5 +14,5 @@ config.scene.update = () =>
 {    
 }
 
-const game = new Phaser.Game(config)
+const game = new Phaser.Game(GAME_CONFIG)
 const canvas = document.querySelector("#gameport canvas")
