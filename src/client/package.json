@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "build": "webpack build",
-    "deploy": "webpack build & node server.js"
+    "deploy": "webpack build & node server.js",
+    "deploy:dev": "webpack build --env=development & node server.js",
+    "deploy:prod": "webpack build --env=production & node server.js"
   },
   "author": "",
   "dependencies": {
