@@ -27,6 +27,10 @@ export default (env) => {
           test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
         },
+        {
+          test: /\.(gif|png|jpe?g|svg|xml)$/i,
+          use: "file-loader"
+        }
       ],
     },
     mode: env.development ? 'development' : 'production',

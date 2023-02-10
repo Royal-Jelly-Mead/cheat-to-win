@@ -1,11 +1,12 @@
 import pkg from '../../package.json';
+import testing from '../scenes/testing.js';
 
 const GAME_CONFIG = {
     type: Phaser.AUTO,
     parent: "gameport",
     width: '100%',
     height: '100%',
-    scene: {},
+    scene: testing, // Replace with start screen eventually
     canvasStyle: '',
     title: 'Cheat to Win',
     version: pkg.version,
