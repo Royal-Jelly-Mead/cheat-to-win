@@ -5,12 +5,11 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "webpack build --env=development & start http://localhost:3000/ & node server.js",
     "start": "node server.js",
     "build": "webpack build",
     "deploy": "webpack build & node server.js",
-    "deploy:dev": "webpack build --env=development & node server.js",
-    "deploy:prod": "webpack build --env=production & node server.js"
+    "deploy:dev": "webpack build --env=development & node server.js"
   },
   "author": "",
   "dependencies": {

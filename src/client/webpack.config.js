@@ -7,6 +7,10 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default (env) => {
+  const mode = env.development ? 'development' : 'production';
+  const color = mode === 'production' ? '\u001b[32m' : '\u001b[33m';
+  console.log(`${color}WEBPACK: Building Project in ${mode} mode.\u001b[0m\n`);
+
   return {
     entry: './gameplay/index.js',
     output: {
