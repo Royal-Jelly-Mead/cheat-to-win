@@ -3,6 +3,12 @@ import testing from '../scenes/testing.js';
 
 const GAME_CONFIG = {
     type: Phaser.AUTO,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: false,
+        }
+    },
     parent: "gameport",
     width: '100%',
     height: '100%',
