@@ -7,4 +7,3 @@ export class Scene extends PhaserScene {
     create: any
     update: any
 }
-
