@@ -1,12 +1,13 @@
-import pkg from '../../package.json';
-import testing from '../scenes/testing.js';
+import testing from '../scenes/testing';
+import Phaser from 'phaser';
+import pkg from './package.js';
 
-const GAME_CONFIG = {
+export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: false,
+            gravity: {},
         }
     },
     parent: "gameport",

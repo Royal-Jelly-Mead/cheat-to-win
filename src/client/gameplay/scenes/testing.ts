@@ -1,35 +1,36 @@
-import { Scene, Math } from 'phaser'
-const { Vector2 } = Math
+import { Scene } from '../util/phaserExtensions'
+const frameConfig: Phaser.Types.Loader.FileTypes.ImageFrameConfig = { frameWidth: 16, frameHeight: 16 }
 
-const sceneConfig = {
+const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
   key: 'Testing',
   pack: {
     prefix: 'TEST1.',
     path: 'assets/testing',
     defaultType: 'image',
     files: [
-      { key: 'candy_pallette', extension: 'png' },
+      { key: 'candy_pallette', extension: 'png', type: 'image' },
       {
         key: 'healer_f',
         extension: 'png',
         type: 'spritesheet',
-        frameConfig: { frameWidth: 16, frameHeight: 16 },
+        frameConfig: frameConfig,
       },
     ],
   },
 }
 
 const scene = new Scene(sceneConfig)
-let player
+let player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
 const playerMovement = { x: 0, y: 0, direction: 'down' }
-let cursors
+let cursors: Phaser.Types.Input.Keyboard.CursorKeys
 
-const WALK_LOOKUP = {
-  up: [0, 1, 2, 1],
-  right: [3, 4, 5, 4],
-  down: [6, 7, 8, 7],
-  left: [9, 10, 11, 10],
-}
+const Directions = [ "up", "right", "down", "left" ]
+const WALK_LOOKUP: number[][] = [
+  [0, 1, 2, 1],     // 0: up
+  [3, 4, 5, 4],     // 1: right
+  [6, 7, 8, 7],     // 2: down
+  [9, 10, 11, 10],  // 3: left
+]
 
 function setPlayerMovement() {
   const up = cursors.up.isDown ? -1 : 0
@@ -68,39 +69,18 @@ function setPlayerMovement() {
     default:
       break;
   }
-  // if (vertical !== 0 && playerMovement.y !== vertical) playerMovement.y = vertical
-  // if (horizontal !== 0 && playerMovement.x !== horizontal) playerMovement.x = horizontal
-  // if (vertical === 0 && horizontal === 0) return
-
-  // const x = playerMovement.x
-  // const y = playerMovement.y
-  // let direction = playerMovement.direction
-
-  // if (
-  //   vertical !== 0 &&
-  //   horizontal !== 0 &&
-  //   ((direction === 'up' && y === 1) ||
-  //     (direction === 'down' && y === -1) ||
-  //     (direction === 'left' && x === -1) ||
-  //     (direction === 'right' && y === 1))
-  // ) return
-
-  // if (vertical !== 0) direction = vertical === -1 ? 'up' : 'down'
-  // else direction = horizontal === 1 ? 'right' : 'left'
-  
-  // playerMovement.normal = new Vector2(horizontal, vertical).normalize()
-  // playerMovement.velocity = horizontal !== 0 && vertical !== 0 ? 1 : 0
 }
 
 scene.create = () => {
   player = scene.physics.add.sprite(400, 400, 'TEST1.healer_f', 4)
   cursors = scene.input.keyboard.createCursorKeys()
 
-  Object.keys(WALK_LOOKUP).forEach((key) => {
+  for ( const num in WALK_LOOKUP ) {
+    const key: String = Directions[num];
     player.anims.create({
       key: `walk_${key}`,
       frames: player.anims.generateFrameNumbers('TEST1.healer_f', {
-        frames: WALK_LOOKUP[key],
+        frames: WALK_LOOKUP[num],
       }),
       frameRate: 3,
       repeat: -1,
@@ -108,12 +88,12 @@ scene.create = () => {
     player.anims.create({
       key: `idle_${key}`,
       frames: player.anims.generateFrameNumbers('TEST1.healer_f', {
-        frames: [WALK_LOOKUP[key][1]],
+        frames: [WALK_LOOKUP[num][1]],
       }),
       frameRate: 3,
       repeat: -1,
     })
-  })
+  }
   player.anims.play('idle_down', true)
 }
 

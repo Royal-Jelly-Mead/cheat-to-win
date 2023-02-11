@@ -20,6 +20,11 @@ export default (env) => {
     module: {
       rules: [
         {
+          test: /\.tsx?$/,
+          use: 'ts-loader',
+          exclude: /node_modules/,
+        },
+        {
           test: /\.txt$/,
           use: ['raw-loader'],
         },
@@ -30,8 +35,22 @@ export default (env) => {
         {
           test: /\.(gif|png|jpe?g|svg|xml)$/i,
           use: "file-loader"
+        },
+        {
+          test: /\.tsx?$/,
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: mode === 'production' ? true : false
+              }
+            }
+          ]
         }
       ],
+    },
+    resolve: {
+      extensions: ['.ts', '.js', '.json', '.css'],
     },
     mode: env.development ? 'development' : 'production',
     plugins: [new HtmlWebpackPlugin({ template: './index.html' })],

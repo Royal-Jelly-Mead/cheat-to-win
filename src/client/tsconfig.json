@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": false,
+    "noEmit": false,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "module": "ESNext",
+    "target": "ESNext",
+    "strict": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "baseUrl": "./src",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "typeRoots": ["node_modules/@types", "node_module/phaser/types"],
+    "types": ["Phaser"],
+  },
+  "include": ["gameplay/**/*"]
+}

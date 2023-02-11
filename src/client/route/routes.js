@@ -1,7 +1,7 @@
-const routes = (app) => {
-    app.get('/', (_, res) => {
-        res.render('index.html')
-    })
+export function routes(app) {
+  app.get('/', (_, res) => {
+    res.render('index.html')
+  })
 }
 
-export default routes
+export default { routes }

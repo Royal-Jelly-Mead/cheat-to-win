@@ -1,15 +1,13 @@
-import express from "express"
-import { fileURLToPath } from "url";
-import path from "path"
-import routes from "./route/routes.js"
+import Express from "express"
+import Path from "path"
+import { routes } from "./route/routes.js"
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-global.__dirname = __dirname
-
-const app = express()
-app.use("/", express.static(path.join(__dirname, 'dist')))
-app.use("/assets", express.static(path.join(__dirname, 'assets')))
+const directory = Path.resolve()
+console.log("DIRECTORY: " + directory)
+global.__dirname = directory
+const app = Express()
+app.use("/", Express.static(Path.join(__dirname, 'dist')))
+app.use("/assets", Express.static(Path.join(__dirname, 'assets')))
 routes(app)
 
 const port = 3000
