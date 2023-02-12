@@ -50,32 +50,32 @@ function setPlayerMovement() {
   if (vertical === 0 && horizontal === 0) return
 
   switch (playerMovement.direction) {
-    case 'up':
-      if (vertical === -1) return
-      if (vertical === 0)
-        playerMovement.direction = horizontal === 1 ? 'right' : 'left'
-      else playerMovement.direction = 'down'
-      break
-    case 'down':
-      if (vertical === 1) return
-      if (vertical === 0)
-        playerMovement.direction = horizontal === 1 ? 'right' : 'left'
-      else playerMovement.direction = 'up'
-      break
-    case 'left':
-      if (horizontal === -1) return
-      if (horizontal === 0)
-        playerMovement.direction = vertical === 1 ? 'down' : 'up'
-      else playerMovement.direction = 'right'
-      break
-    case 'right':
-      if (horizontal === 1) return
-      if (horizontal === 0)
-        playerMovement.direction = vertical === 1 ? 'down' : 'up'
-      else playerMovement.direction = 'left'
-      break
-    default:
-      break
+  case 'up':
+    if (vertical === -1) return
+    if (vertical === 0)
+      playerMovement.direction = horizontal === 1 ? 'right' : 'left'
+    else playerMovement.direction = 'down'
+    break
+  case 'down':
+    if (vertical === 1) return
+    if (vertical === 0)
+      playerMovement.direction = horizontal === 1 ? 'right' : 'left'
+    else playerMovement.direction = 'up'
+    break
+  case 'left':
+    if (horizontal === -1) return
+    if (horizontal === 0)
+      playerMovement.direction = vertical === 1 ? 'down' : 'up'
+    else playerMovement.direction = 'right'
+    break
+  case 'right':
+    if (horizontal === 1) return
+    if (horizontal === 0)
+      playerMovement.direction = vertical === 1 ? 'down' : 'up'
+    else playerMovement.direction = 'left'
+    break
+  default:
+    break
   }
 }
 

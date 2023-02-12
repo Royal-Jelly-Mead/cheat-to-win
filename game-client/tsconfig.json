@@ -19,7 +19,7 @@
       "~/*": ["./*"]
     },
     "typeRoots": ["node_modules/@types", "node_module/phaser/types"],
-    "types": ["Phaser"],
+    "types": ["Phaser"]
   },
   "include": ["gameplay/**/*"]
 }
