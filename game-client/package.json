@@ -3,13 +3,10 @@
   "version": "0.1.0",
   "description": "",
   "type": "module",
-  "main": "server.js",
   "scripts": {
-    "test": "webpack build --env=development & start http://localhost:3000/ & node server.js",
-    "start": "nodemon server.js",
+    "start": "npm run build",
     "build": "webpack build",
-    "deploy": "webpack build & node server.js",
-    "deploy:dev": "webpack build --env=development & node server.js"
+    "build:dev": "webpack build --env=development"
   },
   "author": "",
   "dependencies": {
