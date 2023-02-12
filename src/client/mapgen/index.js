@@ -32,7 +32,6 @@ export class MapGenerator {
         this.noise1.SetSeed(seed)
         this.noise2.SetSeed(seed)
         this.noise3.SetSeed(seed)
-        console.log('generating map')
         const noiseData = []
         for (let x = 0; x < size; x++) {
             noiseData[x] = []
@@ -41,7 +40,6 @@ export class MapGenerator {
                 const b = (this.noise2.GetNoise(x,y) + 1) / 2
                 const c = (this.noise3.GetNoise(x,y) + 1) / 2
                 const ratio = (a + b + c) / 3
-                console.log(ratio)
                 noiseData[x][y] = ratio > FLOOR_TO_WALL_RATIO ? 0 : 1
             }
         }

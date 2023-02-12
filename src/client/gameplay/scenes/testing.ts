@@ -1,4 +1,6 @@
 import { Scene } from '../util/phaserExtensions'
+import { Math } from 'phaser'
+
 const frameConfig: Phaser.Types.Loader.FileTypes.ImageFrameConfig = { frameWidth: 16, frameHeight: 16 }
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -8,7 +10,6 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
     path: 'assets/testing',
     defaultType: 'image',
     files: [
-      { key: 'candy_pallette', extension: 'png', type: 'image' },
       {
         key: 'healer_f',
         extension: 'png',
@@ -105,8 +106,9 @@ scene.update = () => {
   if (animation !== player.anims.currentAnim.key) {
     player.anims.play(animation, true)
   }
-  player.setVelocityX(playerMovement.x * 100)
-  player.setVelocityY(playerMovement.y * 100)
+
+  const inputVector: Math.Vector2 = new Math.Vector2(playerMovement).normalize()
+  player.setVelocity(inputVector.x * 100, inputVector.y * 100)
 }
 
 export default scene
