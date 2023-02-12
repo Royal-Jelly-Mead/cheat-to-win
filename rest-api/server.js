@@ -1,16 +1,19 @@
-import Express from "express"
-import Path from "path"
-import { routes } from "./route/routes.js"
+import Express from 'express';
+import Path from 'path';
+import { routes } from './route/routes.js';
 
-const directory = Path.resolve()
-console.log("DIRECTORY: " + directory)
-global.__dirname = directory
-const app = Express()
-app.use("/", Express.static(Path.join(__dirname, '../game-client/dist')))
-app.use("/assets", Express.static(Path.join(__dirname, 'assets')))
-routes(app)
+const app = Express();
 
-const port = 3000
+const directory = Path.resolve();
+console.log('DIRECTORY: ' + directory);
+/* eslint-disable no-undef */
+global.__dirname = directory;
+app.use('/', Express.static(Path.join(__dirname, '../game-client/dist')));
+app.use('/assets', Express.static(Path.join(__dirname, 'assets')));
+/* eslint-enable no-undef */
+routes(app);
+
+const port = 3000;
 app.listen(port, () => {
-  console.log(`Cheat to Win: app listening on port ${port}`)
-})
+	console.log(`Cheat to Win: app listening on port ${port}`);
+});

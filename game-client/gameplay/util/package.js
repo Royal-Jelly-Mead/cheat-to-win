@@ -1,3 +1,3 @@
 import pkg from '../../package.json';
 
-export default pkg
+export default pkg;

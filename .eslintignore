@@ -1,0 +1,7 @@
+/game-client/dist/*
+*.json
+*.png
+*.html
+*.css
+*.txt
+*.md

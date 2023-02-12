@@ -1,5 +1,7 @@
-import Phaser from "phaser"
-import GAME_CONFIG from "./util/config.ts"
-import css from "../style.css"
+import { Phaser } from './util/config';
+import GAME_CONFIG from './util/config.ts';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import css from '../style.css';
 
-const game = new Phaser.Game(GAME_CONFIG)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const game = new Phaser.Game(GAME_CONFIG);
