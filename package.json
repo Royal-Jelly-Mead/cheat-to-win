@@ -1,7 +1,7 @@
 {
   "name": "cheat-to-win",
   "version": "1.0.0",
-  "description": "In order to run the client server, you must first navigate to the client app folder: `/src/client`",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
