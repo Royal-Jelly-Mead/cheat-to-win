@@ -8,7 +8,8 @@ export function routes(app) {
 
   app.get('/map/:seed/:size', (req, res) => {
     const { seed, size } = req.params
-    const map = mapGenerator.generateMap(seed, size)
+    console.log(`generating map size ${size} with seed "${seed}"`)
+    const map = mapGenerator.generateMapFull(seed, size)
     res.json(map)
   })
 }
