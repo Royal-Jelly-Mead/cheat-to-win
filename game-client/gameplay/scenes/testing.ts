@@ -117,7 +117,7 @@ function setPlayerMovement() {
 }
 
 scene.create = () => {
-  
+  scene.physics.world.setBounds(0, 0, testMap.length * 32, testMap.length * 32)
   cursors = scene.input.keyboard.createCursorKeys()
   // tilemap
   tileMap = scene.make.tilemap({data: testMap, tileWidth: 32, tileHeight: 32})
@@ -126,7 +126,7 @@ scene.create = () => {
   tileMapLayer.setCollision(0)
   tileMapLayer.setCollision(2)
   // player
-  player = scene.physics.add.sprite(100, 400, 'TEST1.healer_f', 4)
+  player = scene.physics.add.sprite(32 * 6, 32, 'TEST1.healer_f', 4)
   for (const num in WALK_LOOKUP) {
     const key: string = Directions[num]
     player.anims.create({
