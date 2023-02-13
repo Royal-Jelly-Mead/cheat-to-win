@@ -1,9 +1,37 @@
 import { Scene } from '../util/phaserExtensions'
-import { Math } from 'phaser'
+import { Math, Tilemaps } from 'phaser'
 
-const frameConfig: Phaser.Types.Loader.FileTypes.ImageFrameConfig = {
+const testMap = [
+  [1, 0, 0, 1, 0, 3, 3, 0, 0, 2, 2, 1, 0, 5, 5, 1, 3, 1, 1, 1],
+  [0, 0, 0, 0, 1, 3, 3, 0, 0, 1, 2, 1, 1, 1, 0, 3, 0, 1, 1, 1],
+  [0, 0, 4, 0, 1, 2, 2, 1, 0, 1, 1, 5, 5, 1, 2, 0, 1, 1, 1, 1],
+  [1, 0, 5, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 3],
+  [1, 0, 0, 3, 3, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 3],
+  [1, 0, 0, 0, 0, 4, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1],
+  [0, 0, 0, 4, 0, 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 0, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 2, 2, 1, 0, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+  [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 4, 4, 1, 0, 1, 1, 0, 0],
+  [1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 4, 4, 4, 1, 0, 0, 1, 5, 0, 0],
+  [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0],
+  [1, 2, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  [1, 2, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  [1, 2, 4, 4, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+  [0, 4, 4, 4, 3, 1, 0, 2, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0],
+  [0, 0, 0, 0, 1, 1, 0, 0, 4, 2, 2, 0, 0, 0, 1, 1, 1, 1, 0, 0],
+  [0, 0, 0, 1, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+  [3, 0, 1, 1, 4, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+  [4, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 4, 1, 1, 1, 0, 0],
+]
+
+const characterFrameConfig: Phaser.Types.Loader.FileTypes.ImageFrameConfig = {
   frameWidth: 16,
   frameHeight: 16,
+}
+
+const tileMapFrameConfig: Phaser.Types.Loader.FileTypes.ImageFrameConfig = {
+  frameWidth: 32,
+  frameHeight: 32
 }
 
 const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
@@ -17,13 +45,22 @@ const sceneConfig: Phaser.Types.Scenes.SettingsConfig = {
         key: 'healer_f',
         extension: 'png',
         type: 'spritesheet',
-        frameConfig: frameConfig,
+        frameConfig: characterFrameConfig,
+      },
+      {
+        key:'tileset',
+        extension: 'png',
+        type: 'image',
+        frameConfig: tileMapFrameConfig 
       },
     ],
   },
 }
 
 const scene = new Scene(sceneConfig)
+
+let tileMap: Tilemaps.Tilemap
+
 let player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
 const playerMovement = { x: 0, y: 0, direction: 'down' }
 let cursors: Phaser.Types.Input.Keyboard.CursorKeys
@@ -80,9 +117,16 @@ function setPlayerMovement() {
 }
 
 scene.create = () => {
-  player = scene.physics.add.sprite(400, 400, 'TEST1.healer_f', 4)
+  
   cursors = scene.input.keyboard.createCursorKeys()
-
+  // tilemap
+  tileMap = scene.make.tilemap({data: testMap, tileWidth: 32, tileHeight: 32})
+  const tiles = tileMap.addTilesetImage('TEST1.tileset');
+  const tileMapLayer = tileMap.createLayer(0, tiles, 0, 0)
+  tileMapLayer.setCollision(0)
+  tileMapLayer.setCollision(2)
+  // player
+  player = scene.physics.add.sprite(100, 400, 'TEST1.healer_f', 4)
   for (const num in WALK_LOOKUP) {
     const key: string = Directions[num]
     player.anims.create({
@@ -102,6 +146,11 @@ scene.create = () => {
       repeat: -1,
     })
   }
+  // collisions
+  tileMap.setCollisionByProperty({collision: true}, true, true, tileMapLayer)
+  scene.physics.add.collider(player, tileMapLayer)
+  player.setCollideWorldBounds(true)
+  // init player anim
   player.anims.play('idle_down', true)
 }
 

@@ -1,6 +1,8 @@
 import testing from '../scenes/testing'
-import Phaser from 'phaser'
+import * as phaser from 'phaser'
 import pkg from './package.js'
+
+export const Phaser = phaser
 
 export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
