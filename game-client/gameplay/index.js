@@ -1,4 +1,5 @@
-import { GAME_CONFIG, Phaser } from './util/config.ts';
+import { GAME_CONFIG } from './util/config.ts';
+import { Phaser } from './util/phaserInit.ts';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import css from '../style.css';
 

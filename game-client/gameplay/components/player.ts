@@ -7,11 +7,12 @@ const WALK_LOOKUP: number[][] = [
   [9, 10, 11, 10], // 3: left
 ]
 const Directions = ['up', 'right', 'down', 'left']
-
+type PlayerMovement = { x: number, y: number, direction: string }
 
 export class Player {
   sprite: Types.Physics.Arcade.SpriteWithDynamicBody
   id: number
+  movement: PlayerMovement
   //   inventory: Item[]
   // equippedItem: Item
   // footgear: Footgear
@@ -20,6 +21,7 @@ export class Player {
   constructor(xPos: number, yPos: number, id: number, scene: Scene, imageAssetKey: string, frame = 4) {
     this.sprite = scene.physics.add.sprite(xPos, yPos, imageAssetKey, frame)
     this.id = id
+    this.movement = { x: 0, y: 0, direction: 'down' }
     for (const num in WALK_LOOKUP) {
       const key: string = Directions[num]
       this.sprite.anims.create({
