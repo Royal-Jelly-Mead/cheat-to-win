@@ -2,16 +2,8 @@ import { Types } from 'phaser'
 import { Player } from '../components/player'
 import { Math } from 'phaser'
 
-
-type RemoteKey = {
-  isDown: boolean
-}
-export type RemotePlayerController = {
-  up, down, left, right: RemoteKey
-}
-
 export function setPlayerMovement(
-  cursors: Types.Input.Keyboard.CursorKeys | RemotePlayerController,
+  cursors: Types.Input.Keyboard.CursorKeys,
   player: Player,
 ) {
   const up = cursors.up.isDown ? -1 : 0
