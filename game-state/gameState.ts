@@ -1,11 +1,25 @@
 import { Item } from '../game-client/gameplay/components/item'
 import { Player, Directions } from '../game-client/gameplay/components/player'
 import { TileType } from '../game-client/gameplay/components/tile'
+import { MAP_CONFIG } from '../game-client/gameplay/util/config'
 
 const ALLOC = {
-  ITEM: 2, // x, y
+  ITEM: 4, // xA, xB, yA, yB
   TILE: 4, // type, itemIndex, health, isTrap
-  PLAYER: 4 // player.movement.x, player.movement.y, player.movement.direction, player.health
+  PLAYER: 6 // player.movement.xA/B, player.movement.yA/B, player.movement.direction, player.health
+}
+
+// xA/yA denotes the tile coordinate
+// xB/yB denotes the pixel coordinate within the tile
+// (A * tilesize) + B === actual world coordinate by pixel
+export function serializeCoordinateToBytes(n: number): number[] {
+  const c = n % MAP_CONFIG.tilesize
+  const d = (n - c) / MAP_CONFIG.tilesize
+  return [d,c]
+}
+
+export function deSerializeCoordinateFromBytes(a: number, b: number): number {
+  return (a * MAP_CONFIG.tilesize) + b
 }
 
 function shuffle(array) {
@@ -52,7 +66,7 @@ export function buildGameState(
       gameState[index] = tileTypeIndex // tile type
       gameState[index + 1] = -1 // item index
       gameState[index + 2] = TileType[tileTypeIndex].indexOf('wall') !== -1 ? 20 : -1 // health
-      gameState[index + 3] = 0
+      gameState[index + 3] = 0 // isTrap
 
       possibleItemIndices.push(index + 1)
       index += ALLOC.TILE
@@ -61,10 +75,14 @@ export function buildGameState(
 
   for (let i = 0; i < players.length; i++) {
     const player: Player = players[i]
-    gameState[index] = player.movement.x
-    gameState[index + 1] = player.movement.y
-    gameState[index + 2] = Directions[player.movement.direction]
-    gameState[index + 3] = player.health
+    const x = serializeCoordinateToBytes(player.movement.x)
+    gameState[index] = x[0]     // xA
+    gameState[index + 1] = x[1] // xB
+    const y = serializeCoordinateToBytes(player.movement.y)
+    gameState[index + 2] = y[0] // yA
+    gameState[index + 3] = y[1] // yB
+    gameState[index + 4] = Directions[player.movement.direction]
+    gameState[index + 5] = player.health
     index += ALLOC.PLAYER
   }
 
