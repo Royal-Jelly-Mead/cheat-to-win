@@ -1,6 +1,13 @@
-import testing from '../scenes/testing'
-import Phaser from 'phaser'
+import { loadScene } from '../scenes/testing'
 import pkg from './package.js'
+
+export const MAP_CONFIG = {
+  tilesize: 32,
+  wallCollisionIndices: [
+    0,  // regular/stone wall 
+    2   // ice wall
+  ]
+}
 
 export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -13,7 +20,7 @@ export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
   parent: 'gameport',
   width: '100%',
   height: '100%',
-  scene: testing, // Replace with start screen eventually
+  scene: loadScene(MAP_CONFIG.tilesize), // Replace with start screen eventually
   canvasStyle: '',
   title: 'Cheat to Win',
   version: pkg.version,
@@ -37,4 +44,4 @@ export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
   },
 }
 
-export default { GAME_CONFIG, Phaser }
+export default { MAP_CONFIG, GAME_CONFIG, Phaser }
