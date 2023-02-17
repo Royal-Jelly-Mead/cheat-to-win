@@ -4,11 +4,9 @@ import fetch from 'node-fetch'
 import { Player } from '../game-client/gameplay/components/player'
 import { Item, EquipmentSlot, Weapon, Bodygear, Handgear, Footwear, Consumable } from '../game-client/gameplay/components/item'
 
-let GAME_STATE: Int8Array
-let ITEM_ALLOC: number
-let PLAYER_ALLOC: number
-let MAP_ALLOC: number
-
+const MATCHES: GameStateValues[] = []
+const PLAYER_GROUPS: Player[][] = []
+const ACTIVE_STATUS: boolean[] = []
 const MAP_SIZE = MAP_CONFIG.defaultMapSize
 const API = 'https://localhost:3000'
 
@@ -37,16 +35,27 @@ const STANDARD_ITEM_SET: Item[] = (() => {
   return result
 })()
 
-async function initGame(players: Player[]) {
+async function initMatch(players: Player[]) {
   const seed = Math.floor(Math.random() * 10000)
   const getMapDataUrl = `${API}/map/${seed}/${MAP_SIZE}`
   const mapData = await fetch(getMapDataUrl).then(r => r.json().then(d => d))
   try {
     const gameStateValues: GameStateValues = buildGameState(mapData, players, STANDARD_ITEM_SET)
-    GAME_STATE = gameStateValues.gameState
-    ITEM_ALLOC = gameStateValues.itemAlloc
-    PLAYER_ALLOC = gameStateValues.playerAlloc
-    MAP_ALLOC = gameStateValues.mapAlloc
+    let gameID = -1
+    for (let i = 0; i < MATCHES.length; i++) {
+      if (ACTIVE_STATUS[i] === false) {
+        MATCHES[i] = gameStateValues
+        PLAYER_GROUPS[i] = players
+        ACTIVE_STATUS[i] = true
+        gameID = i
+        break
+      }
+    }
+    if (gameID === -1) {
+      gameID = MATCHES.length
+      MATCHES.push(gameStateValues)
+      PLAYER_GROUPS.push(players) // probably useful to re-connect players to dropped game
+    }
     // TODO: broadcast gamestart to players
   } catch (e) {
     // TODO: broadcast error to players
