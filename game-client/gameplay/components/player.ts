@@ -6,13 +6,21 @@ const WALK_LOOKUP: number[][] = [
   [6, 7, 8, 7], // 2: down
   [9, 10, 11, 10], // 3: left
 ]
-const Directions = ['up', 'right', 'down', 'left']
+
+export enum Directions {
+  'up', 
+  'right', 
+  'down', 
+  'left'
+}
+
 type PlayerMovement = { x: number, y: number, direction: string }
 
 export class Player {
   sprite: Types.Physics.Arcade.SpriteWithDynamicBody
   id: number
   movement: PlayerMovement
+  health = 20
   //   inventory: Item[]
   // equippedItem: Item
   // footgear: Footgear

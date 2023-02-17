@@ -6,7 +6,8 @@ export const MAP_CONFIG = {
   wallCollisionIndices: [
     0,  // regular/stone wall 
     2   // ice wall
-  ]
+  ],
+  defaultMapSize: 100
 }
 
 export const GAME_CONFIG: Phaser.Types.Core.GameConfig = {
