@@ -19,7 +19,7 @@ export enum Handgear {
   'gauntlets', // 2
 }
 
-export enum Footgear {
+export enum Footwear {
   'cleated-boots', // 0
   'shoes', // 1
   'heavy-boots', // 2
@@ -43,7 +43,7 @@ export enum EquipmentSlot {
 export class Item {
   equipmentSlot: number
   subtype: number
-  constructor(slot: EquipmentSlot, subtype: Weapon | Bodygear | Handgear | Footgear | Consumable) {
+  constructor(slot: EquipmentSlot, subtype: Weapon | Bodygear | Handgear | Footwear | Consumable) {
     this.equipmentSlot = slot
     this.subtype = subtype
   }
