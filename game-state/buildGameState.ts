@@ -3,7 +3,7 @@ import { Player, Directions } from '../game-client/gameplay/components/player'
 import { TileType } from '../game-client/gameplay/components/tile'
 import { MAP_CONFIG } from '../game-client/gameplay/util/config'
 
-const ALLOC = {
+export const ALLOC = {
   ITEM: 4, // xA, xB, yA, yB
   TILE: 4, // type, itemIndex, health, isTrap
   PLAYER: 6 // player.movement.xA/B, player.movement.yA/B, player.movement.direction, player.health
